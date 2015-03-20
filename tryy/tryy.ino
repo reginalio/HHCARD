@@ -1,16 +1,13 @@
 #define trigPin 12
 #define echoPin 13
 
-
 int led6 = 6;  /* creat variable for ledPin and set it to 13*/
 int led11 = 11;
 int led10 = 10;
 int led9 = 9;
 //int trigPin = 12;
 int i=0;
-int x=0;
 
-//int state=0; /* variable to store data serial.read*/
 //int flag=0;
 //digitalRead(pin) is to reads the value from a specified digital pin , either HiGH or LOW
 
@@ -49,74 +46,109 @@ void loop ()
     digitalWrite(led11, LOW);
     digitalWrite(led10, LOW);
     digitalWrite(led9,LOW);
-    digitalWrite(led6, LOW);
-    
+    digitalWrite(led6, LOW);    
   }
   else {
     Serial.print(distance);
     Serial.println(" cm");
-    delay(1000);
-       // digitalQrite
-       // String input = "";
-       //loop function
+    delay(500);
+    
+  //loop function
      while (Serial.available() >0)
          {
-          String input = "";
-          input += (char) Serial.read();   // Read in one char at a time    
-       x= digitalRead (6)  ;
-         Serial.println(x );
-        if (input == "A")
+          char input;
+          input = (char) Serial.read();   // Read in one char at a time    
+    
+        if (input == 'A')   // 0-19mL
            {
-            //  while(input != "B")
-              //{
-             digitalWrite(led6, HIGH);
-            // delay(500);  //on pin 13
-             //digitalWrite(led6,LOW);
-             //delay(500);
-             //if (input == "B") 
-            // {
-                 //break;
-                // }
-            //  }
+              while(1)
+               {
+                digitalWrite(led6, HIGH);
+                delay(500);  
+                digitalWrite(led6,LOW);
+                delay(500);
+                input = (char) Serial.read();
+                if (input == 'B')   // 20mL
+                   {
+                     break;
+                   }
+                 }
             }   
-        if (input == "B")
+        if (input == 'B')         //20mL
         {
          digitalWrite(led6, HIGH);
-          digitalWrite(led11, HIGH);
         }
-              // for (int i=0;i<=100;i++)
-        // if (input == "C")
-          // {
-         //digitalWrite(led6, HIGH);  //on pin 13
-         //digitalWrite(led11, HIGH);
-         //delay (1000);
-        // digitalWrite(led6, LOW);
-        //delay (1000);
-        //on pin 9
-        //delay (1000);
-        // digitalWrite(led11, LOW);
-        //delay (1000);
-           // }
-          if (input == "C")
+               if (input == 'C')   // 21-39mL
+           {
+              while(1)
+               {
+                digitalWrite(led11, HIGH);
+                delay(500);  
+                digitalWrite(led11,LOW);
+                delay(500);
+                input = (char) Serial.read();
+                if (input == 'D')   // 40mL
+                   {
+                     break;
+                   }
+                 }
+            }   
+          if (input == 'D')      // 40mL
              {
-            digitalWrite(led6, HIGH);  //on pin 13
-            digitalWrite(led11, HIGH);  //on pin 13
-            digitalWrite(led10, HIGH);  //on pin 13
+            digitalWrite(led6, HIGH);  
+            digitalWrite(led11, HIGH);  
              }
-         if (input == "D")
+             if (input == 'E')   // 41-59mL
+           {
+              while(1)
+               {
+                digitalWrite(led10, HIGH);
+                delay(500);  
+                digitalWrite(led10,LOW);
+                delay(500);
+                input = (char) Serial.read();
+                if (input == 'F')   // 60mL
+                   {
+                     break;
+                   }
+                 }
+            }   
+             if (input == 'F')     //60mL
+             {
+            digitalWrite(led6, HIGH);  
+            digitalWrite(led11, HIGH);  
+            digitalWrite(led10, HIGH);  
+             }
+             if (input == 'G')   // 61-79mL
+           {
+              while(1)
+               {
+                digitalWrite(led9, HIGH);
+                delay(500);  
+                digitalWrite(led9,LOW);
+                delay(500);
+                input = (char) Serial.read();
+                if (input == 'H')   // 80mL
+                   {
+                     break;
+                   }
+                 }
+            }
+        
+         if (input == 'H')    //80mL
             {
-            digitalWrite(led6, HIGH);  //on pin 13
-            digitalWrite(led11, HIGH);  //on pin 13
-            digitalWrite(led10, HIGH);  //on pin 13
+            digitalWrite(led6, HIGH);  
+            digitalWrite(led11, HIGH);  
+            digitalWrite(led10, HIGH); 
             digitalWrite(led9, HIGH);
             }
-      else if (input == "E")
-      {
-     digitalWrite(led6, LOW);  //off pin 13
-     digitalWrite(led11, LOW);   //off pin 9
-     digitalWrite(led10, LOW);   //off pin 9
-     digitalWrite(led9,LOW);
-      }
+         else if (input == 'I')
+            {
+            digitalWrite(led6, LOW);  
+            digitalWrite(led11, LOW);   
+            digitalWrite(led10, LOW);   
+            digitalWrite(led9,LOW);
+            }
          }
    }
  }
