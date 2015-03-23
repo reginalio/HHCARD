@@ -38,53 +38,95 @@ long getDistance(){
   
   return distance;
 }
+
+void blinkLED(int thatLED){
+    digitalWrite(thatLED, HIGH);
+     delay(500);  
+     digitalWrite(thatLED,LOW);
+     delay(500);
+}
   
 void loop ()
 {
-   distance = 30;
-   if(Serial.available() >0){
+   long distance = 30;
+   if(input != 'X' || Serial.available() >0){
      if(input == 'X')
          input = (char) Serial.read();
          
      // wait until ultrasound is close enough
      do{
       distance = getDistance();
-     }while(distance > 15)
+      Serial.println("Out of range");
+     }while(distance > 15);
      
+    Serial.print(distance);        //LED on depends on the input
+    Serial.println(" cm");
+
      if(input == 'A'){
        while(1){
-         digitalWrite(led6, HIGH);
-         delay(500);  
-         digitalWrite(led6,LOW);
-         delay(500);
+          blinkLED(led6);
          input = (char) Serial.read();
-         if (input == 'B')   // 20mL
+         if (input == 'B'){   // 20mL
+               do{
+                 blinkLED(led6);
+                 distance = getDistance();
+               }while(distance >15);
            break;
+         }
        }
      }else if (input == 'B'){
        digitalWrite(led6, HIGH);
        while(1){
-         digitalWrite(led11, HIGH);
-          delay(500);  
-          digitalWrite(led11,LOW);
-          delay(500);
+          blinkLED(led11);
           input = (char) Serial.read();
-          if (input == 'C')   // 40mL
+          if (input == 'C'){   // 40mL
+               do{
+                 blinkLED(led11);
+                 distance = getDistance();
+               }while(distance > 15);
                break;
+          }
         }
      }else if(input == 'C'){
+       digitalWrite(led6, HIGH);
         digitalWrite(led11, HIGH);  
         while(1)
          {
-          digitalWrite(led10, HIGH);
-          delay(500);  
-          digitalWrite(led10,LOW);
-          delay(500);
+          blinkLED(led10);
           input = (char) Serial.read();
-          if (input == 'D')   // 60mL
+          if (input == 'D'){   // 60mL
+               do{
+                 blinkLED(led10);
+                 distance = getDistance();
+               }while(distance > 15);
                break;
+          }
          }
-       else  
+     }else if(input == 'D'){
+       digitalWrite(led6, HIGH);
+        digitalWrite(led11, HIGH);
+        digitalWrite(led10, HIGH);  
+        while(1)
+         {
+          blinkLED(led9);
+          input = (char) Serial.read();
+          if (input == 'E') {   // 80mL
+               do{
+                 blinkLED(led9);
+                 distance = getDistance();
+               }while(distance > 15);
+               break;
+          }
+         }
+     }else if(input == 'E'){
+       digitalWrite(led6, HIGH);
+        digitalWrite(led11, HIGH);
+        digitalWrite(led10, HIGH); 
+         digitalWrite(led9, HIGH); 
+       input = (char) Serial.read();
+
+    } 
+    else  if(input == 'X')
         {
         digitalWrite(led6,LOW);  
         digitalWrite(led11,LOW);   
