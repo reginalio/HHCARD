@@ -1,4 +1,4 @@
-int led = 8;
+int led = 6;
 
 void setup() {
   pinMode(led,OUTPUT);
@@ -7,14 +7,15 @@ void setup() {
   // I read online that you may need to use Serial1 instead of Serial
   // if you are using the Arduino micro for rx input
   // (Serial worked fine for Arduino Uno)
-  Serial.begin(9600); 
-  Serial.flush(); 
+  Serial.begin(9600);
+  Serial1.begin(9600); 
+  Serial1.flush(); 
 }
 
 void loop() {
   // Check bluetooth input if available, else just blink
-  if(Serial.available() > 0){
-    char input = (char)Serial.read();
+  if(Serial1.available() > 0){
+    char input = (char)Serial1.read();
     Serial.println(input);
     
     // if input is A, keep LED on until input changes
@@ -24,8 +25,8 @@ void loop() {
       while(1){
         Serial.println("Waiting to blink again");
         Serial.println(input);
-        if(Serial.available() > 0){
-           input = (char)Serial.read();
+        if(Serial1.available() > 0){
+           input = (char)Serial1.read();
            Serial.println("I read");
            Serial.println(input);
            if(input != 'A'){
