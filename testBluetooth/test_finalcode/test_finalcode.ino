@@ -16,6 +16,7 @@ void setup()
   pinMode (led9, OUTPUT);
   pinMode (trigPin, OUTPUT);
   pinMode (echoPin, INPUT);
+  
   digitalWrite(led6, HIGH);  /*writemode to low*/  
   digitalWrite(led11, HIGH);
   digitalWrite(led10, HIGH);

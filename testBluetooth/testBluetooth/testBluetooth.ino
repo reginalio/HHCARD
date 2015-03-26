@@ -9,6 +9,7 @@ void setup() {
   // (Serial worked fine for Arduino Uno)
   Serial.begin(9600);
   Serial1.begin(9600); 
+  while(!Serial1){}
   Serial1.flush(); 
 }
 

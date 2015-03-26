@@ -16,6 +16,13 @@ void setup()
   pinMode (led9, OUTPUT);
   pinMode (trigPin, OUTPUT);
   pinMode (echoPin, INPUT);
+  
+  digitalWrite(led6, HIGH);  /*writemode to low*/  
+  digitalWrite(led11, HIGH);
+  digitalWrite(led10, HIGH);
+  digitalWrite(led9, HIGH);
+  delay(500);
+  
   digitalWrite(led6, LOW);  /*writemode to low*/  
   digitalWrite(led11, LOW);
   digitalWrite(led10, LOW);
@@ -24,9 +31,11 @@ void setup()
   // serial port communicate in RX and TX also with computer via USB
   Serial.begin(9600);   /* deflaut board rate for the bluetooth module ... initialize serial and wait for port to open*/ 
   Serial.flush();      // wait for the traansmission of outgoing data to complete remove buffered incoming serial data
-  
+ 
   Serial1.begin(9600);   /* deflaut board rate for the bluetooth module ... initialize serial and wait for port to open*/ 
-//  Serial1.flush();      // wait for the traansmission of outgoing data to complete remove buffered incoming serial data
+  while(!Serial1){}
+  Serial1.flush();      // wait for the traansmission of outgoing data to complete remove buffered incoming serial data
+  
 }
 
 long getDistance(){
@@ -68,6 +77,8 @@ void loop ()
   }
 
      if(input == 'A'){
+       Serial.print("read input");
+       Serial.println(input);
        while(1){
           blinkLED(led6);
          input = (char) Serial1.read();
@@ -85,6 +96,8 @@ void loop ()
      }
      
      else if (input == 'B'){            //20mL
+       Serial.print("read input");
+       Serial.println(input);
        digitalWrite(led6, HIGH);
        while(1){
          if (Serial1.available()>0){
@@ -103,6 +116,8 @@ void loop ()
      }
        
        else if (input == 'C'){
+         Serial.print("read input");
+       Serial.println(input);
          while(1){
           blinkLED(led11);
           input = (char) Serial1.read();
@@ -120,6 +135,8 @@ void loop ()
      }
      
       else if (input == 'D'){              //40mL
+          Serial.print("read input");
+       Serial.println(input);
          digitalWrite(led6, HIGH);
          digitalWrite(led11, HIGH); 
          while(1){
@@ -137,6 +154,8 @@ void loop ()
          }       
      }
      else if(input == 'E'){ 
+       Serial.print("read input");
+       Serial.println(input);
         while(1)
          {
           blinkLED(led10);
@@ -154,6 +173,8 @@ void loop ()
          }
      }
       else if (input == 'F'){            //60mL
+         Serial.print("read input");
+        Serial.println(input);
          digitalWrite(led6, HIGH);
          digitalWrite(led11, HIGH);
          digitalWrite(led10, HIGH);
@@ -173,6 +194,8 @@ void loop ()
      }
      
      else if(input == 'G'){
+       Serial.print("read input");
+       Serial.println(input);
         while(1)
          {
           blinkLED(led9);
@@ -189,7 +212,9 @@ void loop ()
           }
          }
      }
-       else if (input == 'H'){            //80mL
+     else if (input == 'H'){            //80mL
+       Serial.print("read input");
+       Serial.println(input);
          digitalWrite(led6, HIGH);
          digitalWrite(led11, HIGH);
          digitalWrite(led10, HIGH);
@@ -210,6 +235,8 @@ void loop ()
      }
     
     else if (input == 'Z'){            //60mL
+      Serial.print("read input");
+       Serial.println(input);
       digitalWrite(led6, LOW);
       digitalWrite(led11, LOW);
       digitalWrite(led10, LOW);
@@ -223,9 +250,49 @@ void loop ()
         delay(1000);
       }
      }
+     // for shake
+     else if (input == 'S'){
+       Serial.print("read input");
+       Serial.println(input);
+       while(input == 'S'){
+         if(Serial.available()>0)
+           input = (char) Serial.read();
+           
+          digitalWrite(led6, LOW);
+          digitalWrite(led11, LOW);
+          digitalWrite(led10, LOW);
+          digitalWrite(led9, LOW);
+          delay(200);
+          digitalWrite(led6, HIGH);
+          digitalWrite(led11, HIGH);
+          digitalWrite(led10, HIGH);
+          digitalWrite(led9, HIGH);
+          delay(200);
+       }
+     }
+     //for pour out
+     else if(input == 'O'){
+          Serial.print("read input");
+          Serial.println(input);    
+          digitalWrite(led6, LOW);
+          delay(500);
+          digitalWrite(led11, LOW);
+          delay(500);
+          digitalWrite(led10, LOW);
+          delay(500);
+          digitalWrite(led9, LOW);
+          while(input == 'O'){
+            if(Serial.available()>0)
+              input = (char) Serial.read();
+          }
+     }
      else{
-       Serial.println("Do not recognise input");
+       Serial.println("Do not recognise input" + input);
+        distance = getDistance();
+        Serial.print(distance);        //LED on depends on the input
+        Serial.println(" cm");
        delay(1000);
+       input = 'Z';
    }
    }
 }
