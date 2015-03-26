@@ -115,7 +115,6 @@ void loop ()
         distance = getDistance();
         Serial.print(distance);        //LED on depends on the input
         Serial.println(" cm");
-        delay(1000);
        } 
      }
        
@@ -156,7 +155,6 @@ void loop ()
           distance = getDistance();
           Serial.print(distance);        //LED on depends on the input
           Serial.println(" cm");
-          delay(1000);
          }        
      }
      else if(input == 'E'){ 
@@ -195,7 +193,6 @@ void loop ()
           distance = getDistance();
           Serial.print(distance);        //LED on depends on the input
           Serial.println(" cm");
-          delay(1000);
          }  
      }
      
@@ -235,7 +232,6 @@ void loop ()
         distance = getDistance();
         Serial.print(distance);        //LED on depends on the input
         Serial.println(" cm");
-        delay(1000);
        } 
      }
     
@@ -252,7 +248,6 @@ void loop ()
         distance = getDistance();
         Serial.print(distance);        //LED on depends on the input
         Serial.println(" cm");
-        delay(1000);
       }
      }
      // for shake
@@ -296,7 +291,7 @@ void loop ()
        distance = getDistance();
        Serial.print(distance);        //LED on depends on the input
        Serial.println(" cm");
-       delay(1000);
+       delay(500);
        input = 'Z';
    }
    }
