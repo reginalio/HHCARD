@@ -12,7 +12,7 @@ This repository contains the Arduino micro source code written for the project. 
 from an Android phone via Bluetooth. The source code for the Android app can be found 
 here: https://github.com/reginalio/HHCARDCocktailGame
 
-The final version of the code can be found in `WithBluetooth/WithBluetooth.ino`. Other folders consist of 
+The final version of the code can be found in `finalcode_Withbluetooth/finalcode_Withbluetooth.ino`. Other folders consist of 
 various tests we wrote during code development
 
 ### Build
